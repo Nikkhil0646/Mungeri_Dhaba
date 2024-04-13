@@ -1,18 +1,76 @@
-import React from "react";
-import { FiMenu } from "react-icons/fi";
-import Logo from '../src/logo.png'
+import { useEffect } from "react";
+import {
+  Routes,
+  Route,
+  useNavigationType,
+  useLocation,
+} from "react-router-dom";
+import LANDINGPAGE from "./pages/LANDINGPAGE";
+import AndroidSmall from "./pages/AndroidSmall";
+import AndroidSmall1 from "./pages/AndroidSmall1";
+import OurMenu from "./pages/OurMenu";
+import AndroidSmall2 from "./pages/AndroidSmall2";
 
 function App() {
+  const action = useNavigationType();
+  const location = useLocation();
+  const pathname = location.pathname;
+
+  useEffect(() => {
+    if (action !== "POP") {
+      window.scrollTo(0, 0);
+    }
+  }, [action, pathname]);
+
+  useEffect(() => {
+    let title = "";
+    let metaDescription = "";
+
+    switch (pathname) {
+      case "/":
+        title = "";
+        metaDescription = "";
+        break;
+      case "/android-small-6":
+        title = "";
+        metaDescription = "";
+        break;
+      case "/android-small-33":
+        title = "";
+        metaDescription = "";
+        break;
+      case "/our-menu":
+        title = "";
+        metaDescription = "";
+        break;
+      case "/android-small-3":
+        title = "";
+        metaDescription = "";
+        break;
+    }
+
+    if (title) {
+      document.title = title;
+    }
+
+    if (metaDescription) {
+      const metaDescriptionTag = document.querySelector(
+        'head > meta[name="description"]'
+      );
+      if (metaDescriptionTag) {
+        metaDescriptionTag.content = metaDescription;
+      }
+    }
+  }, [pathname]);
+
   return (
-    <div className="flex justify-between items-center p-8">
-      <div className="flex items-center">
-        <img src={Logo} alt='Mungeri dhaba' className="w-1/5"></img>
-        <h1 className="text-black text-7xl font-bold">Mungeri</h1>
-        <h1 class="text-red-600 text-7xl font-bold justify-center">Dhaba</h1>
-      </div>
-      <FiMenu className="text-black text-6xl " />
-    </div>
+    <Routes>
+      <Route path="/" element={<LANDINGPAGE />} />
+      <Route path="/android-small-6" element={<AndroidSmall />} />
+      <Route path="/android-small-33" element={<AndroidSmall1 />} />
+      <Route path="/our-menu" element={<OurMenu />} />
+      <Route path="/android-small-3" element={<AndroidSmall2 />} />
+    </Routes>
   );
 }
-
 export default App;
